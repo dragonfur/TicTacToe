@@ -1,0 +1,66 @@
+/* styles */
+
+:root {
+    --cell-size: 100px;
+    --mark-size: calc(var(--cell-size) * 0.9);
+}
+
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.board {
+    background-color: aliceblue;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    place-items: center;
+}
+
+.cell {
+    background-color: antiquewhite;
+    width: 100px;
+    height: 100px;
+    display: grid;
+    place-items: center;
+    border: solid 1px black;
+}
+
+.cell.x::after,
+.cell.x::before {
+    position: absolute;
+    content: "";
+    height: var(--mark-size);
+    width: calc(var(--mark-size) * 0.1);
+    background-color: black;
+}
+
+.cell.x::after {
+    transform: rotate(45deg);
+}
+
+.cell.x::before {
+    transform: rotate(-45deg);
+}
+
+.cell.o::after,
+.cell.o::before {
+    position: absolute;
+    content: "";
+    border-radius: 50%;
+}
+
+.cell.o::before {
+    width: var(--mark-size);
+    height: var(--mark-size);
+    background-color: black;
+}
+
+.cell.o::after {
+    width: calc(var(--mark-size) * 0.8);
+    height: calc(var(--mark-size) * 0.8);
+    background-color: antiquewhite;
+}
