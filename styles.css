@@ -20,6 +20,16 @@ body {
     place-items: center;
 }
 
+.boardCover {
+    height: 306px;
+    width: 306px;
+    background-color: aliceblue;
+    z-index: 99;
+    position: absolute;
+    display: none;
+    opacity: 0.5;
+}
+
 .cell {
     background-color: antiquewhite;
     width: 100px;
@@ -27,6 +37,12 @@ body {
     display: grid;
     place-items: center;
     border: solid 1px black;
+    cursor: pointer;
+}
+
+.cell.x,
+.cell.o {
+    cursor: not-allowed;
 }
 
 .cell.x::after,
