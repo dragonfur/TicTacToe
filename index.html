@@ -8,9 +8,32 @@
     <title>Tic Tac Toe</title>
 </head>
 <body>
-    <div class="board" id="board">
-        <div class="winningMessage"></div>
+    <div class="header">
+        <h1 class="title">Tic-Tac-Toe</h1>
     </div>
+    <div class="container">
+        <div class="playersContainer">
+            <div class="playerOne">
+                <div class="playerOneName">Player 1
+                    <span class="tooltipHover">Click me to change your name!</span>
+                </div>
+                <div class="playerOneScore">0</div>
+            </div>
+            <div class="playerTwo">
+                <div class="playerTwoName">Player 2
+                    <span class="tooltipHover">Click me to change your name!</span>
+                </div>
+                <div class="playerTwoScore">0</div>
+            </div>
+        </div>
+        <div class="statusDisplay">
+            X makes a move
+        </div>
+        <div class="board" id="board">
+        </div>
+        <button class="restartGame">Restart</button>
+    </div>
+    
     <script src="script.js"></script>
 </body>
 </html>

@@ -28,11 +28,25 @@ const gameBoard = (() => {
 
     const restartGame = () => {    
         board.innerHTML = ""
+        displayController.whatsTheStatus.innerHTML = `${displayController.playerOneName.childNodes[0].textContent} starts first.`
+    }
+
+    const restartGameButton = () => {
+        const restartButton = document.querySelector("button.restartGame")
+        restartButton.addEventListener("click", () => {
+            if(confirm("Are you sure?")) {
+                createBoard()
+            }
+            else {
+                return
+            }
+        })
     }
 
     return {
         createBoard,
-        gameSquares
+        gameSquares,
+        restartGameButton
     }
 })()
 
@@ -52,12 +66,18 @@ const displayController = (() => {
     let circleTurn
     const CIRCLE_CLASS = "o"
     const X_CLASS = "x"
-    
+    var activeClass
+    const whatsTheStatus = document.querySelector(".statusDisplay")
+    const playerOneName = document.querySelector(".playerOneName")
+    const playerTwoName = document.querySelector(".playerTwoName")
 
     const getClick = function handleClick(e) {
         const cellTarget = e.target
         const cellNumber = e.target.dataset.cell
         const currentClass = circleTurn ? CIRCLE_CLASS : X_CLASS
+        const currentPlayer = circleTurn ? playerTwoName : playerOneName
+        const reversePlayerTurns = circleTurn ? playerOneName : playerTwoName
+        activeClass = currentClass
         placemark(cellTarget, currentClass, cellNumber)
         circleTurn = !circleTurn
         rounds += 1
@@ -65,8 +85,16 @@ const displayController = (() => {
             console.log(`${currentClass} wins`)
             var boardCover = document.querySelector("div.boardCover")
             boardCover.style.display = "block"
+            whatsTheStatus.textContent = `${currentPlayer.childNodes[0].textContent} is the winner!`
+            circleTurn ? (playerTwoScore.textContent = (parseInt(TwoScore) + 1)) : (playerOneScore.textContent = (parseInt(OneScore) + 1))
         }
-        isDraw(rounds)
+        else if (isDraw(rounds)) {
+            var boardCover = document.querySelector("div.boardCover")
+            boardCover.style.display = "block"
+            whatsTheStatus.textContent = "It's a draw!"
+        }
+        else
+        {whatsTheStatus.textContent = `${reversePlayerTurns.childNodes[0].textContent}'s turn.`}
     }
 
     function placemark(cell, currentClass, index) {
@@ -83,11 +111,7 @@ const displayController = (() => {
     }
 
     function isDraw(roundNumber) {
-        if (roundNumber === 9) {
-            console.log("Draw")
-            var boardCover = document.querySelector("div.boardCover")
-            boardCover.style.display = "block"
-        }
+        return (roundNumber === 9)
     }
 
     const restartMark = function backtoX() {
@@ -96,10 +120,37 @@ const displayController = (() => {
         rounds = 0
     }
 
+    //PlayerNames
+    const changeName = () => {
+        playerOneName.addEventListener("click", changeNamePrompt)
+        playerTwoName.addEventListener("click", changeNamePrompt)
+    }
+
+    function changeNamePrompt(e){
+        e.target.childNodes[0].textContent = prompt("What would you like to change your name to?", "Boaty McBoatface")
+        if (e.target.childNodes[0].textContent === "") {
+            e.target.childNodes[0].textContent = "Boaty McBoatface"
+        }
+    }
+
+    //score
+    const playerOneScore = document.querySelector(".playerOneScore")
+    const playerTwoScore = document.querySelector(".playerTwoScore")
+    function changeScore(){
+    var OneScore = playerOneScore.textContent
+    var TwoScore = playerTwoScore.textContent
+    }
+
     return {
         getClick,
-        restartMark
+        restartMark,
+        activeClass,
+        whatsTheStatus,
+        changeName,
+        playerOneName
     }
 })()
 
 gameBoard.createBoard()
+gameBoard.restartGameButton()
+displayController.changeName()
