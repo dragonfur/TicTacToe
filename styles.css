@@ -173,3 +173,17 @@ h1 {
     height: calc(var(--mark-size) * 0.8);
     background-color: var(--main-color);
 }
+
+button.restartGame {
+    background-color: #ffff;
+    border-radius: 3px;
+    min-height: 1.5rem;
+    font-size: 1.1rem;
+    width: clamp(5%, 100px, 10%);
+}
+
+button.restartGame:hover {
+    background-color: #232020;
+    color: #ffff;
+    transition: .5s;
+} 

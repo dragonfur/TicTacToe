@@ -86,7 +86,9 @@ const displayController = (() => {
             var boardCover = document.querySelector("div.boardCover")
             boardCover.style.display = "block"
             whatsTheStatus.textContent = `${currentPlayer.childNodes[0].textContent} is the winner!`
-            circleTurn ? (playerTwoScore.textContent = (parseInt(TwoScore) + 1)) : (playerOneScore.textContent = (parseInt(OneScore) + 1))
+            circleTurn ? (playerOneScore.textContent = (parseInt(OneScore) + 1)) : (playerTwoScore.textContent = (parseInt(TwoScore) + 1))
+            TwoScore = playerTwoScore.textContent
+            OneScore = playerOneScore.textContent
         }
         else if (isDraw(rounds)) {
             var boardCover = document.querySelector("div.boardCover")
@@ -136,10 +138,8 @@ const displayController = (() => {
     //score
     const playerOneScore = document.querySelector(".playerOneScore")
     const playerTwoScore = document.querySelector(".playerTwoScore")
-    function changeScore(){
     var OneScore = playerOneScore.textContent
     var TwoScore = playerTwoScore.textContent
-    }
 
     return {
         getClick,
